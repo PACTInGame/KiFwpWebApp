@@ -37,7 +37,7 @@ def _call_anthropic_api(model: str, system_prompt: str, messages: List[Dict[str,
         return response
 
 def call_api(question, section_content):
-    anthropic_client = anthropic.Anthropic(api_key="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")
+    anthropic_client = anthropic.Anthropic(api_key="")
     model = "claude-3-5-haiku-latest"
     system_prompt = ("Du bist ein eingebetteter KI Assistent in einer Web App für Studierende. Du kannst nur innerhalb "
                      "Web App verwendet werden und wirst immer den aktuellen Teil des Uni-Skriptes sowie eine Anfrage "
