@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="content" class="markdown-content">
+    {{ content|safe }}
+</div>
+
+<script>
+    // Store section boundaries for later use
+    window.sectionBoundaries = {{ section_boundaries|tojson }};
+</script>
+{% endblock %}
