@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('pre code').forEach((block) => {
                 hljs.highlightBlock(block);
             });
-        }, 0);
+        }, 200);
 
         return html;
     }
@@ -94,7 +94,8 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
-            responseDiv.innerHTML = data.response;
+            response_as_md = formatMessageContent(data.response)
+            responseDiv.innerHTML = response_as_md;
         })
         .catch(error => {
             responseDiv.innerHTML = `<div class="alert alert-danger">Error: ${error.message}</div>`;
