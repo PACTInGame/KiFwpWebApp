@@ -1,3 +1,6 @@
+from typing import List, Dict
+
+import anthropic
 from flask import Blueprint, request, jsonify, session
 
 api_blueprint = Blueprint('api', __name__)
@@ -6,6 +9,45 @@ api_blueprint = Blueprint('api', __name__)
 # This will be overridden by the function in __init__.py
 def parse_markdown_sections(markdown_content):
     pass
+
+def _call_anthropic_api(model: str, system_prompt: str, messages: List[Dict[str, str]],
+                        max_tokens: int, anthropic_client) -> str:
+    """Call the Anthropic API to generate a response."""
+    if not anthropic_client:
+        return "Error: Anthropic client not initialized"
+
+    try:
+        # Call the API
+        response = anthropic_client.messages.create(
+            model=model,
+            max_tokens=max_tokens,
+            system=system_prompt,
+            messages=messages
+        )
+        print(response)  # Keeping the debug print
+
+        # Extract token counts and update session cost
+        tokens = {
+            "input_tokens": response.usage.input_tokens,
+            "output_tokens": response.usage.output_tokens
+        }
+        return response.content[0].text
+    except Exception as e:
+        response = f"Error calling Anthropic API: {str(e)}."
+        return response
+
+def call_api(question, section_content):
+    anthropic_client = anthropic.Anthropic(api_key="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")
+    model = "claude-3-5-haiku-latest"
+    system_prompt = ("Du bist ein eingebetteter KI Assistent in einer Web App für Studierende. Du kannst nur innerhalb "
+                     "Web App verwendet werden und wirst immer den aktuellen Teil des Uni-Skriptes sowie eine Anfrage "
+                     "von einem Student bekommen. Gib dein Bestes, die Frage präzise, ausführlich, simpel und fachlich "
+                     "korrekt zu beantworten. Antworte nur auf die Frage des Studenten. Deine Antwort wird in dem Skript "
+                     "ohne Veränderung angezeigt.")
+    prompt = (f"Dies ist die Frage des Nutzers:\n{question}\n Dies ist der aktuelle Abschnitt "
+              f"des Skriptes:\n{section_content}")
+    prompt = [{"role": "user", "content": prompt}]
+    return _call_anthropic_api(model, system_prompt, prompt, 4096, anthropic_client)
 
 
 @api_blueprint.route('/ask', methods=['POST'])
@@ -31,6 +73,6 @@ def ask_ai():
     start, end = section_boundaries[section_index]
     section_content = '\n'.join(content.split('\n')[start:end + 1])
 
-    response = f"AI Response: {question, section_content}"
+    response = f"AI Response: {call_api(question, section_content)}"
 
     return jsonify({"response": response})

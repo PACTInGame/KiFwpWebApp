@@ -106,4 +106,4 @@ Try implementing a more complex conditional statement as an exercise!
 if __name__ == '__main__':
     setup()
     app = create_app()
-    app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True)
