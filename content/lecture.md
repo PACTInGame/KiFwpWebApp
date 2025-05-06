@@ -56,7 +56,7 @@ multiples_of_3 = [x * 3 for x in range(1, 16)]
 print(multiples_of_3)  # [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45]
 ```
 
-## Creating Matricies
+## Creating Matrices
 Here's how to create a 3×4 matrix using a nested list comprehension:
 
 ```python
