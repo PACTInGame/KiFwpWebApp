@@ -33,17 +33,17 @@ Hier ist alles drin:
 - Format: Python-Code, Kommentiert
 
 ## Typen von Prompts 
-- Instruction Prompt: eine klare Anweisung, was sie tun soll
-- Zero-Shot-Prompting: gibts der KI eine Aufgabe ohne jeglicher Beispiel
-- Few-shot Prompting: gibts der KI ein oder mehrere Besipiele mit
-- Chain-of-Thought (Gedankenkette): Schritt für Schritt zu denken 
-- Tree-of-Thought (Gedankenbaum): mehrere Denkpfade gelichzeitig zu entwicklen
-- Self-Consistency-Prompting: Mehre Denkwede zu gehen 
-- Reflexion-Prompting: ihre eigene Antwort zu prüfen
-- Reverse Prompting: welcher Prompt zu einer gegebenen Antwort geführt hat
-- Plan like a Graph: Aufgaben wie in einem Graphen zu planen
-- Negativer Prompt: was soll die KI tun und was soll sie nicht tun 
-- Role Prompting: Die KI schlüpft in eine definierte Rolle
+- Instruction Prompt: Eine klare Anweisung wird der KI gegeben, um ein bestimmtes Ziel zu erreichen.
+- Zero-Shot-Prompting: Die KI erhält eine Aufgabe, ohne jegliche Beispiele zur Verfügung zu haben.
+- Few-Shot-Prompting: Die KI erhält ein oder mehrere Beispiele aus denen es lernen kann, bevor es eine Antwort generiert.
+- Chain-of-Thought (Gedankenkette): Die Aufgabe wird schrittweise erarbeitet, um ein tieferes Verständnis zu erreichen.
+- Tree-of-Thought (Gedankenbaum): Mehrere Denkpfade werden gleichzeitig entwickelt, um verschiedene Lösungsmöglichkeiten zu erkunden.
+- Self-Consistency-Prompting: Verschiedene Prompts werden untersucht, um die konsistenteste/beste Antwort zu finden.
+- Reflexion-Prompting: Die KI wird aufgefordert, ihre eigene Antwort zu überprüfen und zu reflektieren.
+- Reverse Prompting: Es wird untersucht, welcher Prompt zu einer gegebenen Antwort geführt hat.
+- Plan like a Graph: Aufgaben werden so geplant, als ob sie in einem Graphen strukturiert sind, mit Verzweigungen und Knotenpunkten.
+- Negativer Prompt: Es wird explizit angegeben, was die KI tun und nicht tun soll.
+- Role Prompting: Die KI schlüpft in eine definierte Rolle, um aus einer bestimmten Perspektive zu agieren.
 
 ## Prompt Design: Best Practices 
 - Sei konkret: "Erkläre Quantenphyisk für ein Kind" > "Erkläre Quantenphyisk"
