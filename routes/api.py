@@ -43,7 +43,8 @@ def call_api(question, section_content):
                      "Web App verwendet werden und wirst immer den aktuellen Teil des Uni-Skriptes sowie eine Anfrage "
                      "von einem Student bekommen. Gib dein Bestes, die Frage präzise, ausführlich, simpel und fachlich "
                      "korrekt zu beantworten. Antworte nur auf die Frage des Studenten. Deine Antwort wird in dem Skript "
-                     "ohne Veränderung angezeigt.")
+                     "ohne Veränderung angezeigt. Versuche keine Lösungen vorzugeben, sondern erkläre die Konzepte zum "
+                     "Verständnis.")
     prompt = (f"Dies ist die Frage des Nutzers:\n{question}\n Dies ist der aktuelle Abschnitt "
               f"des Skriptes:\n{section_content}")
     prompt = [{"role": "user", "content": prompt}]
