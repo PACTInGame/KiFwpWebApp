@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const content = document.getElementById('content');
     const rawMarkdown = content.textContent.trim();
 
@@ -92,20 +92,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 resultDiv.className = 'mt-2';
 
                 // Füge Überprüfungsfunktion hinzu
-                checkButton.onclick = function() {
-                    try {
-                        const regex = new RegExp(pattern);
-                        const userInput = textarea.value.trim();
+                checkButton.onclick = function () {
+                    const userInput = textarea.value.trim();
 
-                        if (regex.test(userInput)) {
-                            resultDiv.innerHTML = '<div class="alert alert-success">Korrekte Lösung!</div>';
-                        } else {
-                            resultDiv.innerHTML = '<div class="alert alert-danger">Falsche Lösung. Bitte versuche es erneut!</div>';
-                        }
-                    } catch (e) {
-                        resultDiv.innerHTML = `<div class="alert alert-warning">Fehler bei der Überprüfung: ${e.message}</div>`;
-                        console.error('RegEx-Fehler:', e);
-                    }
+                    // API-Aufruf zur Lösungsüberprüfung
+                    fetch('/api/check-solution', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            userInput: userInput,
+                            pattern: pattern
+                        }),
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.isCorrect) {
+                                resultDiv.innerHTML = '<div class="alert alert-success">Korrekte Lösung!</div>';
+                            } else {
+                                resultDiv.innerHTML = '<div class="alert alert-danger">Falsche Lösung. Bitte versuche es erneut!</div>';
+                            }
+                        })
+                        .catch(error => {
+                            resultDiv.innerHTML = `<div class="alert alert-warning">Fehler bei der Überprüfung: ${error.message}</div>`;
+                            console.error('Fehler:', error);
+                        });
                 };
 
                 closestNotesArea.appendChild(checkButton);
@@ -129,12 +146,12 @@ document.addEventListener('DOMContentLoaded', function() {
         h1.after(aiQuestion);
     });
 
-    document.getElementById('save-button').addEventListener('click', function() {
+    document.getElementById('save-button').addEventListener('click', function () {
         window.print();
     });
 
     // Global function to ask the AI
-    window.askAI = function(index) {
+    window.askAI = function (index) {
         const questionInput = document.getElementById(`question-${index}`);
         const responseDiv = document.getElementById(`response-${index}`);
         const question = questionInput.value.trim();
@@ -158,18 +175,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 section_index: index
             }),
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            response_as_md = formatMessageContent(data.response)
-            responseDiv.innerHTML = response_as_md;
-        })
-        .catch(error => {
-            responseDiv.innerHTML = `<div class="alert alert-danger">Error: ${error.message}</div>`;
-        });
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                response_as_md = formatMessageContent(data.response)
+                responseDiv.innerHTML = response_as_md;
+            })
+            .catch(error => {
+                responseDiv.innerHTML = `<div class="alert alert-danger">Error: ${error.message}</div>`;
+            });
     };
 });

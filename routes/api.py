@@ -1,7 +1,10 @@
+import re
 from typing import List, Dict
 
 import anthropic
 from flask import Blueprint, request, jsonify, session
+
+import counters
 
 api_blueprint = Blueprint('api', __name__)
 
@@ -77,3 +80,26 @@ def ask_ai():
     response = f"AI Response: {call_api(question, section_content)}"
 
     return jsonify({"response": response})
+
+
+@api_blueprint.route('/check-solution', methods=['POST'])
+def check_solution():
+    data = request.json
+    user_input = data.get('userInput', '')
+    pattern = data.get('pattern', '')
+
+    try:
+        is_correct = bool(re.search(pattern, user_input))
+
+        if is_correct:
+            correct, failed = counters.increment_correct_solutions()
+        else:
+            correct, failed = counters.increment_failed_attempts()
+
+        return jsonify({
+            "isCorrect": is_correct,
+            "correctSolutions": correct,
+            "failedAttempts": failed
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400

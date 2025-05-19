@@ -1,10 +1,7 @@
 from flask import Flask, session
 from routes import register_routes
 import os
-
-# Globale Zähler für aktive Verbindungen und Seitenaufrufe
-page_views = 0
-active_connections = set()  # Set für eindeutige Nutzer-IDs
+import counters  # Neue Import-Anweisung
 
 
 def create_app():
@@ -16,17 +13,15 @@ def create_app():
 
     @app.before_request
     def before_request():
-        global page_views, active_connections
-
         # Seitenaufrufe inkrementieren
-        page_views += 1
+        counters.increment_page_views()
 
         # Aktive Verbindungen verfolgen
         if 'user_id' in session:
-            active_connections.add(session['user_id'])
+            n_connections = counters.add_active_connection(session['user_id'])
 
         # In Konsole ausgeben
-        print(f"Aktive Verbindungen: {len(active_connections)}, Gesamtaufrufe: {page_views}")
+        print(f"Aktive Verbindungen: {len(counters.active_connections)}, Gesamtaufrufe: {counters.page_views}")
 
     return app
 
@@ -124,4 +119,4 @@ Try implementing a more complex conditional statement as an exercise!
 if __name__ == '__main__':
     setup()
     app = create_app()
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="0.0.0.0", debug=True, port=5001)
