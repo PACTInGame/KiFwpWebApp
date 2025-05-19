@@ -50,11 +50,7 @@ print(even_squares)  # [0, 4, 16, 36, 64]
 ## Exercise 1
 Create a list comprehension that generates a list of the first 15 multiples of 3.
 
-### Solution
-```python
-multiples_of_3 = [x * 3 for x in range(1, 16)]
-print(multiples_of_3)  # [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45]
-```
+$Lösung: ^Dies ist ein Beispiel
 
 ## Creating Matrices
 Here's how to create a 3×4 matrix using a nested list comprehension:

@@ -1,14 +1,32 @@
-from flask import Flask
+from flask import Flask, session
 from routes import register_routes
 import os
+
+# Globale Zähler für aktive Verbindungen und Seitenaufrufe
+page_views = 0
+active_connections = set()  # Set für eindeutige Nutzer-IDs
 
 
 def create_app():
     app = Flask(__name__)
-    app.secret_key = os.urandom(24)  # For session management
+    app.secret_key = os.urandom(24)  # Für Session-Management
 
     # Register routes
     register_routes(app)
+
+    @app.before_request
+    def before_request():
+        global page_views, active_connections
+
+        # Seitenaufrufe inkrementieren
+        page_views += 1
+
+        # Aktive Verbindungen verfolgen
+        if 'user_id' in session:
+            active_connections.add(session['user_id'])
+
+        # In Konsole ausgeben
+        print(f"Aktive Verbindungen: {len(active_connections)}, Gesamtaufrufe: {page_views}")
 
     return app
 

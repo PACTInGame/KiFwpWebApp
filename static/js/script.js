@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const notesArea = document.createElement('div');
             notesArea.className = 'notes-area';
             notesArea.innerHTML = `
-                <textarea placeholder="Your notes for this section..." rows="4"></textarea>
+                <textarea placeholder="Your notes for this section..." rows="4" id="notes-${index}"></textarea>
             `;
             heading.before(notesArea);
         }
@@ -42,7 +42,79 @@ document.addEventListener('DOMContentLoaded', function() {
         content.appendChild(notesArea);
     }
 
-    // Add AI question inputs after each h1
+    // Find elements containing "$Lösung: " and add check buttons
+    // to the nearest notes area
+    Array.from(content.querySelectorAll('p, li')).forEach((element, idx) => {
+        if (element.textContent.includes('$Lösung: ')) {
+            const text = element.textContent;
+            const pattern = text.split('$Lösung: ')[1].trim();
+
+            // Text ohne das Lösungsmuster anzeigen
+            element.textContent = text.split('$Lösung: ')[0];
+
+            // Finde das nächstliegende Notizfeld
+            let closestNotesArea = null;
+            let currentElement = element;
+
+            // Suche nach dem nächsten Notizfeld
+            while (currentElement.nextElementSibling) {
+                currentElement = currentElement.nextElementSibling;
+                if (currentElement.classList.contains('notes-area')) {
+                    closestNotesArea = currentElement;
+                    break;
+                }
+            }
+
+            // Falls kein Notizfeld gefunden wurde, suche nach dem vorherigen
+            if (!closestNotesArea) {
+                currentElement = element;
+                while (currentElement.previousElementSibling) {
+                    currentElement = currentElement.previousElementSibling;
+                    if (currentElement.classList.contains('notes-area')) {
+                        closestNotesArea = currentElement;
+                        break;
+                    }
+                }
+            }
+
+            // Wenn ein Notizfeld gefunden wurde, füge den Überprüfungsbutton hinzu
+            if (closestNotesArea) {
+                const textarea = closestNotesArea.querySelector('textarea');
+
+                // Erstelle Überprüfungsbutton
+                const checkButton = document.createElement('button');
+                checkButton.className = 'btn btn-primary mt-2';
+                checkButton.textContent = 'Lösung überprüfen';
+
+                // Erstelle Ergebnisbereich
+                const resultDiv = document.createElement('div');
+                resultDiv.id = `solution-result-${idx}`;
+                resultDiv.className = 'mt-2';
+
+                // Füge Überprüfungsfunktion hinzu
+                checkButton.onclick = function() {
+                    try {
+                        const regex = new RegExp(pattern);
+                        const userInput = textarea.value.trim();
+
+                        if (regex.test(userInput)) {
+                            resultDiv.innerHTML = '<div class="alert alert-success">Korrekte Lösung!</div>';
+                        } else {
+                            resultDiv.innerHTML = '<div class="alert alert-danger">Falsche Lösung. Bitte versuche es erneut!</div>';
+                        }
+                    } catch (e) {
+                        resultDiv.innerHTML = `<div class="alert alert-warning">Fehler bei der Überprüfung: ${e.message}</div>`;
+                        console.error('RegEx-Fehler:', e);
+                    }
+                };
+
+                closestNotesArea.appendChild(checkButton);
+                closestNotesArea.appendChild(resultDiv);
+            }
+        }
+    });
+
+    // Bestehender Code für AI-Fragen und Save-Button bleibt unverändert
     const h1Elements = Array.from(content.querySelectorAll('h1'));
     h1Elements.forEach((h1, index) => {
         const aiQuestion = document.createElement('div');
@@ -57,7 +129,6 @@ document.addEventListener('DOMContentLoaded', function() {
         h1.after(aiQuestion);
     });
 
-    // Save button functionality
     document.getElementById('save-button').addEventListener('click', function() {
         window.print();
     });
