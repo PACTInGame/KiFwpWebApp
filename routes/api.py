@@ -61,7 +61,7 @@ def ask_ai():
     question = data.get('question', '')
 
     # Read the markdown file
-    with open('content/lecture.md', 'r', encoding='utf-8') as file:
+    with open('content/lecturev2.md', 'r', encoding='utf-8') as file:
         content = file.read()
 
     # Parse the markdown and extract the section

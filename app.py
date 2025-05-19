@@ -37,8 +37,8 @@ def setup():
     os.makedirs('content', exist_ok=True)
 
     # Create sample markdown file if it doesn't exist
-    if not os.path.exists('content/lecture.md'):
-        with open('content/lecture.md', 'w') as f:
+    if not os.path.exists('content/lecturev2.md'):
+        with open('content/lecturev2.md', 'w') as f:
             f.write("""# Introduction to Python
 
 Python is a high-level, interpreted programming language known for its readability and versatility.
