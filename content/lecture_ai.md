@@ -14,23 +14,49 @@ Prompt Engineering ist:
 
 ---
 
-## Grundlagen: Syntax eines guten Prompts
+## Grundlagen: Bestandteile eines Prompts
 
 ```text
-[Rolle] + [Kontext] + [Aufgabe] + [Format]
+EN: [Goal] + [Return Format] + [Warnings] + [Context Dump]
+
+DE: [Zielsetzung] + [Rückgabeformat] + [Warnhinweise] + [Details und Kontext]
 ```
 
-### Beispiel 
+### Goal - Zielsetzung:
+- Schreibe ein klares, fokussiertes Ziel
+- Beginne mit Sätzen wie "Ich benötige" oder "Ich brauche"
+- Halte es prägnant und vollständig
 
 ```text
-Du bist ein Python-Experte. Schreibe eine Funktion in Python, die prüft, ob eine Zahl eine Primzahl ist. Gib kommentierten Code zurück.
+Beispiel: "Ich benötige eine Liste von versteckten Biergärten im Zentrum Münchens, die Weißwurstfrühstück servieren." 
 ```
 
-Hier ist alles drin:
-- Rolle: Du bist ein Python-Experte
-- Kontext: Primzahlprüfung
-- Aufgabe: Schreibe eine Funktion in Python
-- Format: Python-Code, Kommentiert
+### Return Format - Rückgabeformat:
+Gebe genau an, wie die Informationen dargestellt werden soll und liste jedes erforderliche Element auf: 
+- Beginne mit "Bitte gib für jeden Eintrag Folgendes an:"
+- Liste jeden benötigten Punkt auf
+- Berücksichtige alle spezifischen Formatierungsanforderungen
+
+```text
+Beispiel: "Bitte gib für jeden Biergarten den offiziellen Namen, die vollständige Adresse, die Buchungsdetails, den Preis des Frühstücks und den Bier Preis an." 
+```
+  
+### Warnings - Warnhinweise und Anforderungen:
+Hervorhebe alle kritischen Überprüfungen oder Validierungen: 
+- Weise auf mögliche Fallstricke hin
+- Angabe Must-Have-Kriterien
+- Notiere alle Dealbreaker
+- Beispiel: "Stelle sicher, dass jedes Restaurant aktuell offen ist und Reservierungen akzeptiert." 
+
+### Context Dump - Details und Kontext:
+Schließe mit relevanten Hintergrundinformationen ab:
+- Teile Erfahrungen
+- Erwähne Einschränkungen z.B. "barrierefrei" "für Vegetarier geeignet" 
+- Füge einen hilfreichen Kontext hinzu
+
+```text
+Beispiel: "Ich habe die meisten großen Biergärten in München besucht und bevorzuge weniger touristische Einrichtungen. Ich suche ein Lokal indem ich mit meine Kommilitonen besuchen gehen kann."
+```
 
 ## Typen von Prompts 
 - Instruction Prompt: Eine klare Anweisung wird der KI gegeben, um ein bestimmtes Ziel zu erreichen.
@@ -117,18 +143,17 @@ Extrahiere alle Namen und E-Mail-Adressen aus dem folgenden Text und gib sie als
 Analysiere diesen Prompt und verbessere ihn:
 
 ```text
-Erklär mir Mathe.
+richtiges Carbonara in München
 ```
 
 ### Lösungsbeispiel
 ```text
-Erklär das Konzept der linearen Funktionen für Schüler der 10. Klasse anhand eines praktischen Beispiels aus dem Alltag. Verwende einfache Sprache und eine Schritt-für-Schritt-Erklärung.
+Ich suche ein italienisches Restaurant das authentische Carbonara serviert, also mit Guanciale, Pecorino und ohne Sahne.
 ```
 
 ## Übung 2: Prompt bauen
 Entwickle einen Prompt für GPT, der einen HTML-Code für eine einfache Portfolio-Seite erstellt - inklusive Header, Projketliste und Footer.
 
-// ??
 
 ## Fazit 
 - Mach's der KI leicht
@@ -140,3 +165,4 @@ Entwickle einen Prompt für GPT, der einen HTML-Code für eine einfache Portfoli
 // Quellen 
 - https://www.coursera.org/de-DE/articles/what-is-prompt-engineering
 - https://de.wikipedia.org/wiki/Prompt_Engineering
+- https://medium.com/@niall.mcnulty/writing-an-o1-prompt-that-works-16ee921b5859
