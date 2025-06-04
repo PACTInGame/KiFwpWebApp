@@ -13,6 +13,7 @@ api_blueprint = Blueprint('api', __name__)
 def parse_markdown_sections(markdown_content):
     pass
 
+
 def _call_anthropic_api(model: str, system_prompt: str, messages: List[Dict[str, str]],
                         max_tokens: int, anthropic_client) -> str:
     """Call the Anthropic API to generate a response."""
@@ -38,6 +39,7 @@ def _call_anthropic_api(model: str, system_prompt: str, messages: List[Dict[str,
     except Exception as e:
         response = f"Error calling Anthropic API: {str(e)}."
         return response
+
 
 def call_api(question, section_content):
     anthropic_client = anthropic.Anthropic(api_key="")
@@ -82,14 +84,32 @@ def ask_ai():
     return jsonify({"response": response})
 
 
+SOLUTION_PATTERNS = {
+    "list_comprehension_multiples_3": r"^\[3\s*\*\s*([a-zA-Z])\s+for\s+\1\s+in\s+range\(1,\s*11\)\]$",
+    "simple_list": r"^\[\d+(,\s*\d+)*\]$",
+    "for_loop_range": r"^for\s+\w+\s+in\s+range\([^)]+\):$",
+    "function_definition": r"^def\s+\w+\([^)]*\):$",
+}
+
+
 @api_blueprint.route('/check-solution', methods=['POST'])
 def check_solution():
     data = request.json
     user_input = data.get('userInput', '')
-    pattern = data.get('pattern', '')
+    solution_id = data.get('solutionId', '')
 
     try:
-        is_correct = bool(re.search(pattern, user_input))
+        # Pattern anhand der ID aus Dictionary holen
+        if solution_id not in SOLUTION_PATTERNS:
+            return jsonify({"error": f"Solution ID '{solution_id}' not found"}), 400
+
+        pattern = SOLUTION_PATTERNS[solution_id]
+
+        print(f"User input: {user_input}")
+        print(f"Solution ID: {solution_id}")
+        print(f"Using pattern: {pattern}")
+
+        is_correct = bool(re.fullmatch(pattern, user_input))
 
         if is_correct:
             correct, failed = counters.increment_correct_solutions()
@@ -99,7 +119,8 @@ def check_solution():
         return jsonify({
             "isCorrect": is_correct,
             "correctSolutions": correct,
-            "failedAttempts": failed
+            "failedAttempts": failed,
+            "solutionId": solution_id
         })
     except Exception as e:
         return jsonify({"error": str(e)}), 400

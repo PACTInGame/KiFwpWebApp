@@ -57,7 +57,7 @@ print(even_squares)  # [0, 4, 16, 36, 64]
 
 > **Aufgabe:** Erstelle eine Liste der ersten 10 Vielfachen von 3.
 
-$Lösung:  r'^\[\s*3\s*\*\s*i\s+for\s+i\s+in\s+range\s*\(\s*1\s*,\s*11\s*\)\s*\]$'
+$Lösung: list_comprehension_multiples_3
 ## 🧩Verschachtelte List Comprehensions
 
 Du kannst mehrdimensionale Strukturen wie Matrizen erstellen:

@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
     Array.from(content.querySelectorAll('p, li')).forEach((element, idx) => {
         if (element.textContent.includes('$Lösung: ')) {
             const text = element.textContent;
-            const pattern = text.split('$Lösung: ')[1].trim();
+            const solutionId = text.split('$Lösung: ')[1].trim();
 
             // Text ohne das Lösungsmuster anzeigen
             element.textContent = text.split('$Lösung: ')[0];
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         },
                         body: JSON.stringify({
                             userInput: userInput,
-                            pattern: pattern
+                            solutionId: solutionId  // statt 'pattern'
                         }),
                     })
                         .then(response => {
