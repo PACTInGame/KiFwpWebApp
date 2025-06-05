@@ -21,7 +21,7 @@ Die grundlegende Syntax ist:
 [expression for item in iterable]
 ```
 
-### Traditioneller Ansatz
+**Traditioneller Ansatz**
 
 ```python
 squares = []
@@ -29,7 +29,7 @@ for x in range(10):
     squares.append(x**2)
 ```
 
-### List Comprehension Ansatz
+**List Comprehension Ansatz**
 
 ```python
 squares = [x**2 for x in range(10)]
@@ -46,7 +46,7 @@ Du kannst Elemente mit Bedingungen filtern:
 [expression for item in iterable if condition]
 ```
 
-### 💡Beispiel mit Filterung
+**💡Beispiel mit Filterung**
 
 ```python
 even_squares = [x**2 for x in range(10) if x % 2 == 0]
@@ -62,7 +62,7 @@ $Lösung: list_comprehension_multiples_3
 
 Du kannst mehrdimensionale Strukturen wie Matrizen erstellen:
 
-### Erstellen einer 3×3 Matrix
+**Erstellen einer 3×3 Matrix**
 
 ```python
 matrix = [[i*j for j in range(3)] for i in range(3)]
@@ -90,16 +90,16 @@ transposed = [[row[i] for row in matrix] for i in range(3)]
 
 ## 🚀 Fortgeschrittene Techniken
 
-### Bedingte Ausdrücke (if-else)
+**Bedingte Ausdrücke (if-else)**
 
-#### Verwendung von if-else zur Transformation von Werten
+Verwendung von if-else zur Transformation von Werten
 
 ```python
 values = [x if x % 2 == 0 else 'odd' for x in range(10)]
 # Ergebnis: [0, 'odd', 2, 'odd', 4, 'odd', 6, 'odd', 8, 'odd']
 ```
 
-### Arbeiten mit Strings
+**Arbeiten mit Strings**
 
 ```python
 words = ['apple', 'banana', 'cherry', 'date']
@@ -111,17 +111,17 @@ uppercase = [word.upper() for word in words if len(word) > 5]
 
 List Comprehensions sind in der Regel schneller als for-Schleifen und speichereffizienter bei der Arbeit mit großen Datensätzen.
 
-### Speicheroptimierung mit Generator-Ausdrücken
+**Speicheroptimierung mit Generator-Ausdrücken**
 
 Bei der Verarbeitung sehr großer Sequenzen solltest du Generator-Ausdrücke in Betracht ziehen:
 
-#### List Comprehension (speichert alles im Arbeitsspeicher)
+**List Comprehension (speichert alles im Arbeitsspeicher)**
 
 ```python
 sum_squares = sum([x**2 for x in range(1000000)])
 ```
 
-#### Generator-Ausdruck (verarbeitet jeweils einen Wert)
+**Generator-Ausdruck (verarbeitet jeweils einen Wert)**
 
 ```python
 sum_squares = sum(x**2 for x in range(1000000))
@@ -132,13 +132,13 @@ sum_squares = sum(x**2 for x in range(1000000))
 
 ## 📋 Best Practices
 
-### ✅ Verwende List Comprehensions, wenn:
+**✅ Verwende List Comprehensions, wenn:**
 
 - Du eine neue Liste basierend auf einer vorhandenen Sequenz erstellst  
 - Du einfache Transformationen oder Filterungen durchführst  
 - Die Operation klar in einer Zeile ausgedrückt werden kann  
 
-### ❌ Vermeide List Comprehensions, wenn:
+**❌ Vermeide List Comprehensions, wenn:**
 
 - Die Logik komplex ist oder mehrere Schritte umfasst  
 - Die Comprehension schwer zu lesen wird  
@@ -161,13 +161,13 @@ result = [x for x in even_numbers if x % 3 == 0]
 
 ## 🔄 Andere Comprehensions
 
-### Dictionary Comprehension
+**Dictionary Comprehension**
 
 ```python
 {x: x**2 for x in range(5)}  # {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
 ```
 
-### Set Comprehension
+**Set Comprehension**
 
 ```python
 {x**2 for x in [1, 2, 2, 3, 3, 3]}  # {1, 4, 9}
