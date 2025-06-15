@@ -1,8 +1,6 @@
-# Prompt Engineering: Wie man Prompts richtig entwickelt, analysiert und effizient anwendet
+# 0 - Prompt Engineering: Wie man Prompts richtig entwickelt, analysiert und effizient anwendet
 
 Prompt Engineering ist die Kunst, KI-Modelle wie GPT gezielt zu steuern, sodass sie präzise und effiziente Ergebnisse liefern. In dieser Vorlesung werden wir uns mit der Entwicklung, Analyse und Anwendung von Prompts beschäftigen, um sicherzustellen, dass Sie das Beste aus KI herausholen können.
-
----
 
 ## Was ist Prompt Engineering?
 
@@ -13,7 +11,7 @@ Prompt Engineering umfasst:
 
 ---
 
-## Grundlagen: Bestandteile eines Prompts
+# 1 - Grundlagen: Bestandteile eines Prompts
 
 Ein erfolgreicher Prompt besteht aus vier wesentlichen Bestandteilen:
 
@@ -65,8 +63,9 @@ Zusätzliche Informationen, die dem Modell helfen, besser zu verstehen, was Sie 
 ```text
 Beispiel: "Ich habe die meisten großen Biergärten in München besucht und bevorzuge weniger touristische Einrichtungen."
 ```
+---
 
-## Typen von Prompts 
+# 2 - Typen von Prompts 
 - **Instruction Prompt**: Ein klarer Auftrag, der dem Modell sagt, was zu tun ist.
 - **Zero-Shot-Prompting**:  Die KI erhält eine Aufgabe ohne jegliche Beispiele.
 - **Few-Shot-Prompting**: Die KI bekommt Beispiele, um die Aufgabe besser zu verstehen.
@@ -79,14 +78,16 @@ Beispiel: "Ich habe die meisten großen Biergärten in München besucht und bevo
 - **Negativer Prompt**: Es wird explizit angegeben, was die KI nicht tun soll.
 - **Role Prompting**: Die KI übernimmt eine definierte Rolle, um aus einer bestimmten Perspektive zu antworten.
 
-## Best Practices für das Design von Prompts
+---
+
+# 3 - Best Practices für das Design von Prompts
 - **Sei konkret**: „Erkläre Quantenphysik für ein Kind“ ist viel präziser als „Erkläre Quantenphysik“.
 - **Vermeide Mehrdeutigkeit**: Sei klar bei Format, Zielgruppe und Umfang.
 - **Nutze Beispiele**: „Gib Beispiele für...“ hilft der KI, die Aufgabe besser zu verstehen.
 - **Teste iterativ**: Teste den Prompt, schaue dir das Ergebnis an und passe es an, wenn nötig.
 - **Nutze Formatierung**: Verwende Markdown, Codeblöcke und Listen für bessere Klarheit und Struktur.
 
-## Prompt Engineering im Coding-Kontext
+## 3.1 Prompt Engineering im Coding-Kontext
 
 ### Beispiel: Codegenerierung
 #### Prompt:
@@ -104,7 +105,7 @@ def is_palindrome:
 - Der Prompt ist spezifisch genug, um die Aufgabe klarzustellen, und enthält eine Einschränkung (keine eingebauten Funktionen außer lower()).
 - Das Ergebnis ist direkt und entspricht der Anforderung.
 
-## Analyse von Prompts
+## 3.2 Analyse von Prompts
 
 ### Checkliste:
 - Ist die Aufgabe eindeutig formuliert?
@@ -112,7 +113,7 @@ def is_palindrome:
 - Wird zu viel auf einmal verlangt?
 - Stimmt der Stil mit der Zielgruppe überein?
 
-## Optimierung von Prompts
+## 3.3 Optimierung von Prompts
 
 ### Schlechter Prompt
 
@@ -120,13 +121,13 @@ def is_palindrome:
 Mach was mit dem Text.
 ```
 
-### Verbesserter Prompt
+#### Verbesserter Prompt
 
 ```text
 Fasse den folgenden Artikel in 3 Sätzen zusammen. Zielgruppe: Schüler der 5. Klasse. Verwende einfache Sprache.
 ```
 
-### Warum verbessern?
+## 3.4 Warum verbessern?
 Der verbesserte Prompt ist präziser und gibt klare Anweisungen hinsichtlich Umfang, Zielgruppe und Ton.
 
 ## Effizienz: Gute Prompts sparen Ressourcen
@@ -134,25 +135,31 @@ Der verbesserte Prompt ist präziser und gibt klare Anweisungen hinsichtlich Umf
 - **Mehr Konsistenz**: Bessere Prompts resultieren in weniger Nacharbeit und einer konsistenteren Qualität.
 - **Bessere Reproduzierbarkeit**: Gut formulierte Prompts machen Prozesse skalierbar und wiederholbar.
 
-## Prompt-Beispiele aus der Praxis
+---
 
-### 1. Codegenerierung 
+# 4 - Prompt-Beispiele aus der Praxis
+
+## 1. Codegenerierung 
 
 ```text
 Du bist ein Java-Experte. Erstelle eine Funktion, die pürft, ob eine Zahl durch 3 oder 5 teilbar ist.
 ```
 
-### 2. Übersetzung + Stiländerung
+## 2. Übersetzung + Stiländerung
 
 ```text
 Übersetzte folgenden Satz ins Englische und verwende einen formellen Business-Ton.
 ```
 
-### 3. Datenextraktion 
+## 3. Datenextraktion 
 
 ```text
 Extrahiere alle Namen und E-Mail-Adressen aus dem folgenden Text und gib sie als JSON-Datei zurück.
 ```
+
+---
+
+# 5 - Übung macht den Meister
 
 ## Übung 1: Prompt Debugging
 **Ziel**: Identifizieren Sie Schwächen in einem Prompt und verbessern Sie diesen, um präzise und qualitativ hochwertige Ergebnisse zu erhalten.
@@ -168,13 +175,12 @@ Erzähl mir was über die Geschichte von Berlin.
 - Wie können Sie den Prompt präziser machen?
 
 ### Lösung
+<details>
+  <summary><i>Verbesserter Prompt</i></summary>
 
-$Lösung: ^Dies ist ein Beispiel
+Erzähle mir in 3 Absätzen über die Geschichte Berlins. Beginne mit der Gründung der Stadt, gehe dann auf die Zeit des Kalten Krieges und die         Wiedervereinigung ein. Halte den Text einfach, sodass er für Schüler der 10. Klasse verständlich ist.
 
-**Verbesserter Prompt**:
-```text
-Erzähle mir in 3 Absätzen über die Geschichte Berlins. Beginne mit der Gründung der Stadt, gehe dann auf die Zeit des Kalten Krieges und die Wiedervereinigung ein. Halte den Text einfach, sodass er für Schüler der 10. Klasse verständlich ist.
-```
+</details>
 
 ### Erklärung:
 - Der ursprüngliche Prompt ist zu vage und kann zu einer umfassenden Antwort führen, die nicht fokussiert oder leicht verständlich ist.
@@ -187,13 +193,12 @@ Erzähle mir in 3 Absätzen über die Geschichte Berlins. Beginne mit der Gründ
 - Schreiben Sie einen Prompt, der eine Python-Funktion erstellt, die prüft, ob eine Zahl eine Primzahl ist, ohne eingebaute Funktionen wie isprime() zu verwenden.
 
 ### Lösung
+<details>
+  <summary><i>Verbesserter Prompt</i></summary>
 
-$Lösung: ^Dies ist ein Beispiel
-
-**Prompt**:
-```text
 Schreibe eine Python-Funktion, die prüft, ob eine Zahl eine Primzahl ist. Die Funktion soll eine Zahl als Eingabe nehmen und `True` zurückgeben, wenn die Zahl eine Primzahl ist, und `False`, wenn sie es nicht ist. Verwende keine eingebauten Funktionen wie `isprime()` und achte darauf, die Leistung bei größeren Zahlen zu optimieren.
-```
+
+</details>
 
 ### Erklärung:
 - Der Prompt stellt sicher, dass die Lösung ohne eingebaute Funktionen auskommt und auf Leistung optimiert ist, was die Anforderungen präzise definiert.
@@ -211,25 +216,28 @@ Thomas Müller, thomas.mueller@email.com, arbeitet als Entwickler bei XYZ GmbH.
 ```
 
 ### Lösung
-**Prompt**
-```text
+<details>
+  <summary><i>Verbesserter Prompt</i></summary>
+
 Extrahiere aus dem folgenden Text alle Namen und E-Mail-Adressen und gib sie im JSON-Format zurück. Achte darauf, dass der Name und die E-Mail-Adresse korrekt zugeordnet sind.
 
 Text: "Johanna Schmidt, johanna.schmidt@email.com, ist die Projektleiterin bei ABC Corp. Thomas Müller, thomas.mueller@email.com, arbeitet als Entwickler bei XYZ GmbH."
-```
+
+</details>
 
 ### Erklärung:
 - Der Prompt fordert die KI auf, den Text zu analysieren und die Daten in einem strukturierten Format (JSON) auszugeben. Die klare Anweisung zur Ausgabe im JSON-Format und die präzise Angabe der Daten (Namen und E-Mail-Adressen) vermeiden Unklarheiten.
 
+---
 
-## Fazit 
+# Fazit 
 - **Mach es der KI leicht**: Je klarer und strukturierter der Prompt, desto besser das Ergebnis.
 - **Denke an die Zielgruppe**: Schreibe den Prompt so, als ob du einer Person Anweisungen gibst.
 - **Bewerte den Output kritisch**: KI-Modelle liefern Ergebnisse basierend auf den Trainingsdaten – sie sind nicht immer korrekt oder vollständig.
 
 ---
 
-// Quellen 
+## Quellen 
 - https://www.coursera.org/de-DE/articles/what-is-prompt-engineering
 - https://de.wikipedia.org/wiki/Prompt_Engineering
 - https://medium.com/@niall.mcnulty/writing-an-o1-prompt-that-works-16ee921b5859
