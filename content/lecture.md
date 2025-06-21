@@ -164,27 +164,19 @@ Extrahiere alle Namen und E-Mail-Adressen aus dem folgenden Text und gib sie als
 ## Übung 1: Prompt Debugging
 **Ziel**: Identifizieren Sie Schwächen in einem Prompt und verbessern Sie diesen, um präzise und qualitativ hochwertige Ergebnisse zu erhalten.
 
-### Original-Prompt:
+
+
+### Aufgabe:
+Original Prompt:
 ```text
 Erzähl mir was über die Geschichte von Berlin.
 ```
-
-### Aufgabe:
 - Überlegen Sie, warum dieser Prompt zu ungenauen oder weit gefassten Ergebnissen führen könnte.
 - Welche zusätzlichen Informationen fehlen?
 - Wie können Sie den Prompt präziser machen?
 
-### Lösung
-<details>
-  <summary><i>Verbesserter Prompt</i></summary>
 
-Erzähle mir in 3 Absätzen über die Geschichte Berlins. Beginne mit der Gründung der Stadt, gehe dann auf die Zeit des Kalten Krieges und die         Wiedervereinigung ein. Halte den Text einfach, sodass er für Schüler der 10. Klasse verständlich ist.
-
-</details>
-
-### Erklärung:
-- Der ursprüngliche Prompt ist zu vage und kann zu einer umfassenden Antwort führen, die nicht fokussiert oder leicht verständlich ist.
-- Der verbesserte Prompt gibt klare Anweisungen zur Struktur und Zielgruppe der Antwort und stellt sicher, dass nur relevante Informationen enthalten sind.
+$Lösung: ki_task_1
 
 ## Übung 2: Erstellung eines Code-Prompts
 **Ziel**: Formulieren Sie einen präzisen Prompt, der den Code für eine spezifische Aufgabe generiert.
@@ -192,16 +184,7 @@ Erzähle mir in 3 Absätzen über die Geschichte Berlins. Beginne mit der Gründ
 ### Aufgabe:
 - Schreiben Sie einen Prompt, der eine Python-Funktion erstellt, die prüft, ob eine Zahl eine Primzahl ist, ohne eingebaute Funktionen wie isprime() zu verwenden.
 
-### Lösung
-<details>
-  <summary><i>Verbesserter Prompt</i></summary>
-
-Schreibe eine Python-Funktion, die prüft, ob eine Zahl eine Primzahl ist. Die Funktion soll eine Zahl als Eingabe nehmen und `True` zurückgeben, wenn die Zahl eine Primzahl ist, und `False`, wenn sie es nicht ist. Verwende keine eingebauten Funktionen wie `isprime()` und achte darauf, die Leistung bei größeren Zahlen zu optimieren.
-
-</details>
-
-### Erklärung:
-- Der Prompt stellt sicher, dass die Lösung ohne eingebaute Funktionen auskommt und auf Leistung optimiert ist, was die Anforderungen präzise definiert.
+$Lösung: ki_task_2
 
 ## Übung 3: Datenextraktion aus Text
 **Ziel**: Schreiben Sie einen Prompt, der die KI anweist, spezifische Daten aus einem Text zu extrahieren.
@@ -209,24 +192,13 @@ Schreibe eine Python-Funktion, die prüft, ob eine Zahl eine Primzahl ist. Die F
 ### Aufgabe:
 - Extrahieren Sie Namen und E-Mail-Adressen aus einem Text und geben Sie die Daten als JSON-Format zurück.
 
-### Text
+Text:
 ```text
 Johanna Schmidt, johanna.schmidt@email.com, ist die Projektleiterin bei ABC Corp. 
 Thomas Müller, thomas.mueller@email.com, arbeitet als Entwickler bei XYZ GmbH.
 ```
 
-### Lösung
-<details>
-  <summary><i>Verbesserter Prompt</i></summary>
-
-Extrahiere aus dem folgenden Text alle Namen und E-Mail-Adressen und gib sie im JSON-Format zurück. Achte darauf, dass der Name und die E-Mail-Adresse korrekt zugeordnet sind.
-
-Text: "Johanna Schmidt, johanna.schmidt@email.com, ist die Projektleiterin bei ABC Corp. Thomas Müller, thomas.mueller@email.com, arbeitet als Entwickler bei XYZ GmbH."
-
-</details>
-
-### Erklärung:
-- Der Prompt fordert die KI auf, den Text zu analysieren und die Daten in einem strukturierten Format (JSON) auszugeben. Die klare Anweisung zur Ausgabe im JSON-Format und die präzise Angabe der Daten (Namen und E-Mail-Adressen) vermeiden Unklarheiten.
+$Lösung: ki_task_3
 
 ---
 
@@ -302,7 +274,7 @@ print(even_squares)  # [0, 4, 16, 36, 64]
 
 > **Aufgabe:** Erstelle eine Liste der ersten 10 Vielfachen von 3.
 
-$Lösung: list_comprehension_multiples_3
+$Lösung: list_compt_task_1
 ## 🧩Verschachtelte List Comprehensions
 
 Du kannst mehrdimensionale Strukturen wie Matrizen erstellen:
@@ -427,3 +399,19 @@ result = [x for x in even_numbers if x % 3 == 0]
 - Denke daran, dass **Klarheit wichtiger ist als Kompaktheit**
 
 >  🌟 Merke: Obwohl List Comprehensions leistungsstark sind, besteht das Ziel darin, Code zu schreiben, der leicht zu verstehen ist – für dich selbst und andere. Eine gute List Comprehension macht deinen Code **lesbarer und schneller**!
+
+## ✏️Weiterführende Übung
+
+> **Aufgabe:** Gegeben ist eine Liste von Dictionaries, in der Informationen über Studierende und ihre Noten in verschiedenen Fächern gespeichert sind:
+```python
+students = [
+    {"name": "Anna", "grades": {"Mathe": 3, "Deutsch": 2, "Englisch": 1}},
+    {"name": "Ben", "grades": {"Mathe": 4, "Deutsch": 3, "Englisch": 2}},
+    {"name": "Clara", "grades": {"Mathe": 1, "Deutsch": 1, "Englisch": 1}},
+    {"name": "David", "grades": {"Mathe": 5, "Deutsch": 4, "Englisch": 3}},
+    {"name": "Eva", "grades": {"Mathe": 2, "Deutsch": 2, "Englisch": 2}},
+]
+```
+> Erstelle eine neue Liste von Tupeln mit dem Namen und dem Durchschnitt der Noten jedes Studierenden. Runde dabei den Durchschnitt auf zwei Nachkommastellen.
+
+$Lösung: list_compt_task_2

@@ -7,7 +7,7 @@ from flask import Blueprint, request, jsonify, session
 import counters
 
 api_blueprint = Blueprint('api', __name__)
-
+API_KEY = ""
 
 # This will be overridden by the function in __init__.py
 def parse_markdown_sections(markdown_content):
@@ -42,7 +42,8 @@ def _call_anthropic_api(model: str, system_prompt: str, messages: List[Dict[str,
 
 
 def call_api(question, section_content):
-    anthropic_client = anthropic.Anthropic(api_key="")
+    anthropic_client = anthropic.Anthropic(
+        api_key=API_KEY)
     model = "claude-3-5-haiku-latest"
     system_prompt = ("Du bist ein eingebetteter KI Assistent in einer Web App für Studierende. Du kannst nur innerhalb "
                      "Web App verwendet werden und wirst immer den aktuellen Teil des Uni-Skriptes sowie eine Anfrage "
@@ -53,8 +54,15 @@ def call_api(question, section_content):
     prompt = (f"Dies ist die Frage des Nutzers:\n{question}\n\n Dies ist der aktuelle Abschnitt "
               f"des Skriptes:\n{section_content}")
     prompt = [{"role": "user", "content": prompt}]
-    print("trying to call")
-    return _call_anthropic_api(model, system_prompt, prompt, 4096, anthropic_client)
+    return _call_anthropic_api(model, system_prompt, prompt, 2048, anthropic_client)
+
+
+def call_api_solution_check(system_prompt, prompt):
+    anthropic_client = anthropic.Anthropic(
+        api_key=API_KEY)
+    model = "claude-3-5-haiku-latest"
+    prompt = [{"role": "user", "content": prompt}]
+    return _call_anthropic_api(model, system_prompt, prompt, 100, anthropic_client)
 
 
 @api_blueprint.route('/ask', methods=['POST'])
@@ -90,6 +98,7 @@ SOLUTION_PATTERNS = {
     "simple_list": r"^\[\d+(,\s*\d+)*\]$",
     "for_loop_range": r"^for\s+\w+\s+in\s+range\([^)]+\):$",
     "function_definition": r"^def\s+\w+\([^)]*\):$",
+
 }
 
 
@@ -99,29 +108,94 @@ def check_solution():
     user_input = data.get('userInput', '')
     solution_id = data.get('solutionId', '')
 
+    print("route called")
     try:
-        # Pattern anhand der ID aus Dictionary holen
-        if solution_id not in SOLUTION_PATTERNS:
-            return jsonify({"error": f"Solution ID '{solution_id}' not found"}), 400
 
-        pattern = SOLUTION_PATTERNS[solution_id]
+        if solution_id not in ["ki_task_1", "ki_task_2", "ki_task_3", "list_compt_task_1", "list_compt_task_2"]:
 
-        print(f"User input: {user_input}")
-        print(f"Solution ID: {solution_id}")
-        print(f"Using pattern: {pattern}")
+            pattern = SOLUTION_PATTERNS[solution_id]
 
-        is_correct = bool(re.fullmatch(pattern, user_input))
+            print(f"User input: {user_input}")
+            print(f"Solution ID: {solution_id}")
+            print(f"Using pattern: {pattern}")
 
-        if is_correct:
-            correct, failed = counters.increment_correct_solutions()
+            is_correct = bool(re.fullmatch(pattern, user_input))
+
+            if is_correct:
+                correct, failed = counters.increment_correct_solutions()
+            else:
+                correct, failed = counters.increment_failed_attempts()
+
+            return jsonify({
+                "isCorrect": is_correct,
+                "correctSolutions": correct,
+                "failedAttempts": failed,
+                "solutionId": solution_id
+            })
         else:
-            correct, failed = counters.increment_failed_attempts()
+            print("trying to call api solution check")
+            system_prompt = (
+                "Du bist ein eingebetteter KI Assistent zur Überprüfung von Lösungen in einer Web App für Studierende, die während "
+                "der Vorlesung verwendet wird. Deine einzige Aufgabe ist es einen Tag zurückzugeben, der die Lösung der Studierenden als "
+                "richtig <correct> oder falsch <wrong> klassifiziert. Dein einziger output sollte also entweder ein <correct> oder ein <wrong> tag sein."
+                "Es ist WICHTIG, dass du immer als erstes <correct> oder <wrong> antwortest.")
+            prompt = "Bitte klassifiziere die Folgende Lösung zu dieser Aufgabenstellung als richtig <correct> oder falsch <wrong>: \n"
+            if solution_id == "ki_task_1":
+                prompt += (
+                    "Aufgabenstellung: 1. Überlegen Sie, warum dieser Prompt zu ungenauen oder weit gefassten Ergebnissen führen könnte.\n "
+                    "2. Welche zusätzlichen Informationen fehlen?\n"
+                    "3. Wie können Sie den Prompt präziser machen?\n"
+                    "Der Original Prompt lautet: Erzähl mir was über die Geschichte von Berlin.")
 
-        return jsonify({
-            "isCorrect": is_correct,
-            "correctSolutions": correct,
-            "failedAttempts": failed,
-            "solutionId": solution_id
-        })
+            elif solution_id == "ki_task_2":
+                prompt += (
+                    "Aufgabenstellung: Schreiben Sie einen Prompt für ein KI-System, "
+                    "der eine Python-Funktion erstellt, die prüft, ob eine Zahl eine Primzahl ist, "
+                    "ohne eingebaute Funktionen wie isprime() zu verwenden. (Hier ist wirklich nur der Prompt gefragt).")
+
+            elif solution_id == "ki_task_3":
+                prompt += (
+                    "Aufgabenstellung: Schreiben Sie einen einfachen Prompt für ein KI-System, "
+                    "der Namen und E-Mail-Adressen aus einem Text extrahiert und die Daten im JSON-Format zurückgibt.\n"
+                    "Dies ist der Text, aus dem die Daten extrahiert werden sollen:\n"
+                    "Johanna Schmidt, johanna.schmidt@email.com, ist die Projektleiterin bei ABC Corp."
+                    "Thomas Müller, thomas.mueller@email.com, arbeitet als Entwickler bei XYZ GmbH. (Hier ist wirklich nur der Prompt gefragt, ein JSON beispiel ist nicht notwendig)."
+                )
+            elif solution_id == "list_compt_task_1":
+                prompt += (
+                    "Aufgabenstellung: Erstelle die List Comprehension, die die ersten 10 Vielfachen von 3 in eine Liste speichert."
+                )
+            elif solution_id == "list_compt_task_2":
+                prompt += (
+                    """Gegeben ist eine Liste von Dictionaries, in der Informationen über Studierende und ihre Noten in verschiedenen Fächern gespeichert sind:
+                ```python
+                students =[
+                {"name": "Anna", "grades": {"Mathe": 3, "Deutsch": 2, "Englisch": 1}},
+                {"name": "Ben", "grades": {"Mathe": 4, "Deutsch": 3, "Englisch": 2}},
+                {"name": "Clara", "grades": {"Mathe": 1, "Deutsch": 1, "Englisch": 1}},
+                {"name": "David", "grades": {"Mathe": 5, "Deutsch": 4, "Englisch": 3}},
+                {"name": "Eva", "grades": {"Mathe": 2, "Deutsch": 2, "Englisch": 2}},
+                ]
+                ```
+                > Erstelle eine neue Liste von Tupeln mit dem Namen und dem Durchschnitt der Noten jedes Studierenden.Runde dabei den Durchschnitt auf zwei Nachkommastellen."""
+                )
+            prompt += f"\n\nLösung: {user_input}"
+
+            ai_answer_string = call_api_solution_check(system_prompt, prompt)
+            print(ai_answer_string)
+            is_correct = True if "<correct>" in ai_answer_string else False if "<wrong>" in ai_answer_string else None
+
+            if is_correct:
+                correct, failed = counters.increment_correct_solutions()
+            else:
+                correct, failed = counters.increment_failed_attempts()
+
+            return jsonify({
+                "isCorrect": is_correct,
+                "correctSolutions": correct,
+                "failedAttempts": failed,
+                "solutionId": solution_id
+            })
+
     except Exception as e:
         return jsonify({"error": str(e)}), 400
