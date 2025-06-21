@@ -50,9 +50,10 @@ def call_api(question, section_content):
                      "korrekt zu beantworten. Antworte nur auf die Frage des Studenten. Deine Antwort wird in dem Skript "
                      "ohne Veränderung angezeigt. Versuche keine Lösungen vorzugeben, sondern erkläre die Konzepte zum "
                      "Verständnis.")
-    prompt = (f"Dies ist die Frage des Nutzers:\n{question}\n Dies ist der aktuelle Abschnitt "
+    prompt = (f"Dies ist die Frage des Nutzers:\n{question}\n\n Dies ist der aktuelle Abschnitt "
               f"des Skriptes:\n{section_content}")
     prompt = [{"role": "user", "content": prompt}]
+    print("trying to call")
     return _call_anthropic_api(model, system_prompt, prompt, 4096, anthropic_client)
 
 
@@ -65,14 +66,14 @@ def ask_ai():
     data = request.json
     section_index = data.get('section_index', 0)
     question = data.get('question', '')
-
+    print(section_index)
     # Read the markdown file
-    with open('content/lecturev2.md', 'r', encoding='utf-8') as file:
+    with open('content/lecture.md', 'r', encoding='utf-8') as file:
         content = file.read()
 
     # Parse the markdown and extract the section
     section_boundaries = parse_markdown_sections(content)
-
+    print(section_boundaries)
     if section_index < 0 or section_index >= len(section_boundaries):
         return jsonify({"error": "Invalid section index"}), 400
 

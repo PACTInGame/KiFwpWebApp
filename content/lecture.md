@@ -1,173 +1,429 @@
+# 0 - Prompt Engineering: Wie man Prompts richtig entwickelt, analysiert und effizient anwendet
+
+Prompt Engineering ist die Kunst, KI-Modelle wie GPT gezielt zu steuern, sodass sie präzise und effiziente Ergebnisse liefern. In dieser Vorlesung werden wir uns mit der Entwicklung, Analyse und Anwendung von Prompts beschäftigen, um sicherzustellen, dass Sie das Beste aus KI herausholen können.
+
+## Was ist Prompt Engineering?
+
+Prompt Engineering umfasst:
+- Die gezielte Gestaltung von Eingaben (Prompts), um aus Sprachmodellen wie GPT optimale Ergebnisse zu erzielen.
+- Eine Mischung aus **Technik**, **Kreativität** und **Systematik**.
+- Eine neue Sprache im Umgang mit KI: präzise, klar und zielgerichtet.
+
+---
+
+# 1 - Grundlagen: Bestandteile eines Prompts
+
+Ein erfolgreicher Prompt besteht aus vier wesentlichen Bestandteilen:
+
+```text
+EN: [Goal] + [Return Format] + [Warnings] + [Context Dump]
+
+DE: [Zielsetzung] + [Rückgabeformat] + [Warnhinweise] + [Details und Kontext]
+```
+
+### 1. Goal - Zielsetzung:
+Das Ziel des Prompts muss klar und spezifisch formuliert werden.
+- **Warum?** Eine vage Zielsetzung führt oft zu ungenauen oder irrelevanten Antworten.
+- Beginnen Sie mit klaren Phrasen wie „Ich benötige...“ oder „Ich möchte...“.
+- Halten Sie es kurz und prägnant, aber vollständig.
+
+#### Beispiel:
+```text
+"Ich benötige eine Liste von versteckten Biergärten im Zentrum Münchens, die Weißwurstfrühstück servieren." 
+```
+Dies ist klar und gibt der KI genau die Richtung vor.
+
+### 2. Return Format - Rückgabeformat:
+Hier geben Sie an, wie die Antwort strukturiert sein soll.
+- **Warum?** Ein klares Format sorgt für eine einfachere Weiterverarbeitung und reduziert Nachbearbeitung.
+- Beginnen Sie mit: „Bitte gib für jeden Eintrag an...“ und listen Sie alle benötigten Informationen auf.
+- Berücksichtigen Sie Formatierungswünsche (z.B. Listen, Tabellen, Codeblöcke).
+
+#### Beispiel:
+```text
+"Bitte gib für jeden Biergarten den offiziellen Namen, die vollständige Adresse, die Buchungsdetails, den Preis des Frühstücks und den Bierpreis an."
+```
+  
+### 3. Warnings - Warnhinweise und Anforderungen:
+Manchmal gibt es spezifische Anforderungen oder Einschränkungen, die beachtet werden müssen.
+- **Warum?** Warnhinweise helfen, Missverständnisse und Fehler zu vermeiden.
+- Benennen Sie alle entscheidenden Punkte und Fallstricke.
+
+#### Beispiel:
+```text
+"„Stelle sicher, dass jedes Restaurant aktuell geöffnet ist und Reservierungen akzeptiert.“
+```
+
+### 4. Context Dump - Details und Kontext:
+Zusätzliche Informationen, die dem Modell helfen, besser zu verstehen, was Sie suchen.
+- **Warum?** Kontext hilft, die Antwort noch genauer auf Ihre Bedürfnisse abzustimmen.
+- Erwähne Einschränkungen z.B. "barrierefrei" "für Vegetarier geeignet"
+- Geben Sie Hintergrundinformationen oder Erfahrungen an.
+
+```text
+Beispiel: "Ich habe die meisten großen Biergärten in München besucht und bevorzuge weniger touristische Einrichtungen."
+```
+---
+
+# 2 - Typen von Prompts 
+- **Instruction Prompt**: Ein klarer Auftrag, der dem Modell sagt, was zu tun ist.
+- **Zero-Shot-Prompting**:  Die KI erhält eine Aufgabe ohne jegliche Beispiele.
+- **Few-Shot-Prompting**: Die KI bekommt Beispiele, um die Aufgabe besser zu verstehen.
+- **Chain-of-Thought** (Gedankenkette): Das Modell geht schrittweise vor, um ein tieferes Verständnis zu entwickeln.
+- **Tree-of-Thought** (Gedankenbaum): Es werden mehrere Denkpfade gleichzeitig verfolgt, um verschiedene Lösungsmöglichkeiten zu erkunden.
+- **Self-Consistency-Prompting**: Verschiedene Varianten eines Prompts werden getestet, um die konsistenteste Antwort zu finden.
+- **Reflexion-Prompting**:  Die KI wird aufgefordert, ihre Antwort zu reflektieren.
+- **Reverse Prompting**: Untersuchung, welcher Prompt zu einer gegebenen Antwort geführt hat.
+- **Plan like a Graph**: Aufgaben werden in Form eines Entscheidungsgraphen strukturiert.
+- **Negativer Prompt**: Es wird explizit angegeben, was die KI nicht tun soll.
+- **Role Prompting**: Die KI übernimmt eine definierte Rolle, um aus einer bestimmten Perspektive zu antworten.
+
+---
+
+# 3 - Best Practices für das Design von Prompts
+- **Sei konkret**: „Erkläre Quantenphysik für ein Kind“ ist viel präziser als „Erkläre Quantenphysik“.
+- **Vermeide Mehrdeutigkeit**: Sei klar bei Format, Zielgruppe und Umfang.
+- **Nutze Beispiele**: „Gib Beispiele für...“ hilft der KI, die Aufgabe besser zu verstehen.
+- **Teste iterativ**: Teste den Prompt, schaue dir das Ergebnis an und passe es an, wenn nötig.
+- **Nutze Formatierung**: Verwende Markdown, Codeblöcke und Listen für bessere Klarheit und Struktur.
+
+## 3.1 Prompt Engineering im Coding-Kontext
+
+### Beispiel: Codegenerierung
+#### Prompt:
+```text
+Schreibe eine Python-Funktion, die prüft, ob ein String ein Palindrom ist. Verwende keine eingebaute Funktionen außer lower().
+```
+
+#### Output:
+```python
+def is_palindrome:
+    s = s.lower()
+    return s == s[::-1]
+```
+
+- Der Prompt ist spezifisch genug, um die Aufgabe klarzustellen, und enthält eine Einschränkung (keine eingebauten Funktionen außer lower()).
+- Das Ergebnis ist direkt und entspricht der Anforderung.
+
+## 3.2 Analyse von Prompts
+
+### Checkliste:
+- Ist die Aufgabe eindeutig formuliert?
+- Fehlt Kontext oder Hintergrundinformation?
+- Wird zu viel auf einmal verlangt?
+- Stimmt der Stil mit der Zielgruppe überein?
+
+## 3.3 Optimierung von Prompts
+
+### Schlechter Prompt
+
+```text
+Mach was mit dem Text.
+```
+
+#### Verbesserter Prompt
+
+```text
+Fasse den folgenden Artikel in 3 Sätzen zusammen. Zielgruppe: Schüler der 5. Klasse. Verwende einfache Sprache.
+```
+
+## 3.4 Warum verbessern?
+Der verbesserte Prompt ist präziser und gibt klare Anweisungen hinsichtlich Umfang, Zielgruppe und Ton.
+
+## Effizienz: Gute Prompts sparen Ressourcen
+- **Schneller zum Ziel**: Weniger Tokens führen zu schnelleren und kostengünstigeren Ergebnissen.
+- **Mehr Konsistenz**: Bessere Prompts resultieren in weniger Nacharbeit und einer konsistenteren Qualität.
+- **Bessere Reproduzierbarkeit**: Gut formulierte Prompts machen Prozesse skalierbar und wiederholbar.
+
+---
+
+# 4 - Prompt-Beispiele aus der Praxis
+
+## 1. Codegenerierung 
+
+```text
+Du bist ein Java-Experte. Erstelle eine Funktion, die pürft, ob eine Zahl durch 3 oder 5 teilbar ist.
+```
+
+## 2. Übersetzung + Stiländerung
+
+```text
+Übersetzte folgenden Satz ins Englische und verwende einen formellen Business-Ton.
+```
+
+## 3. Datenextraktion 
+
+```text
+Extrahiere alle Namen und E-Mail-Adressen aus dem folgenden Text und gib sie als JSON-Datei zurück.
+```
+
+---
+
+# 5 - Übung macht den Meister
+
+## Übung 1: Prompt Debugging
+**Ziel**: Identifizieren Sie Schwächen in einem Prompt und verbessern Sie diesen, um präzise und qualitativ hochwertige Ergebnisse zu erhalten.
+
+### Original-Prompt:
+```text
+Erzähl mir was über die Geschichte von Berlin.
+```
+
+### Aufgabe:
+- Überlegen Sie, warum dieser Prompt zu ungenauen oder weit gefassten Ergebnissen führen könnte.
+- Welche zusätzlichen Informationen fehlen?
+- Wie können Sie den Prompt präziser machen?
+
+### Lösung
+<details>
+  <summary><i>Verbesserter Prompt</i></summary>
+
+Erzähle mir in 3 Absätzen über die Geschichte Berlins. Beginne mit der Gründung der Stadt, gehe dann auf die Zeit des Kalten Krieges und die         Wiedervereinigung ein. Halte den Text einfach, sodass er für Schüler der 10. Klasse verständlich ist.
+
+</details>
+
+### Erklärung:
+- Der ursprüngliche Prompt ist zu vage und kann zu einer umfassenden Antwort führen, die nicht fokussiert oder leicht verständlich ist.
+- Der verbesserte Prompt gibt klare Anweisungen zur Struktur und Zielgruppe der Antwort und stellt sicher, dass nur relevante Informationen enthalten sind.
+
+## Übung 2: Erstellung eines Code-Prompts
+**Ziel**: Formulieren Sie einen präzisen Prompt, der den Code für eine spezifische Aufgabe generiert.
+
+### Aufgabe:
+- Schreiben Sie einen Prompt, der eine Python-Funktion erstellt, die prüft, ob eine Zahl eine Primzahl ist, ohne eingebaute Funktionen wie isprime() zu verwenden.
+
+### Lösung
+<details>
+  <summary><i>Verbesserter Prompt</i></summary>
+
+Schreibe eine Python-Funktion, die prüft, ob eine Zahl eine Primzahl ist. Die Funktion soll eine Zahl als Eingabe nehmen und `True` zurückgeben, wenn die Zahl eine Primzahl ist, und `False`, wenn sie es nicht ist. Verwende keine eingebauten Funktionen wie `isprime()` und achte darauf, die Leistung bei größeren Zahlen zu optimieren.
+
+</details>
+
+### Erklärung:
+- Der Prompt stellt sicher, dass die Lösung ohne eingebaute Funktionen auskommt und auf Leistung optimiert ist, was die Anforderungen präzise definiert.
+
+## Übung 3: Datenextraktion aus Text
+**Ziel**: Schreiben Sie einen Prompt, der die KI anweist, spezifische Daten aus einem Text zu extrahieren.
+
+### Aufgabe:
+- Extrahieren Sie Namen und E-Mail-Adressen aus einem Text und geben Sie die Daten als JSON-Format zurück.
+
+### Text
+```text
+Johanna Schmidt, johanna.schmidt@email.com, ist die Projektleiterin bei ABC Corp. 
+Thomas Müller, thomas.mueller@email.com, arbeitet als Entwickler bei XYZ GmbH.
+```
+
+### Lösung
+<details>
+  <summary><i>Verbesserter Prompt</i></summary>
+
+Extrahiere aus dem folgenden Text alle Namen und E-Mail-Adressen und gib sie im JSON-Format zurück. Achte darauf, dass der Name und die E-Mail-Adresse korrekt zugeordnet sind.
+
+Text: "Johanna Schmidt, johanna.schmidt@email.com, ist die Projektleiterin bei ABC Corp. Thomas Müller, thomas.mueller@email.com, arbeitet als Entwickler bei XYZ GmbH."
+
+</details>
+
+### Erklärung:
+- Der Prompt fordert die KI auf, den Text zu analysieren und die Daten in einem strukturierten Format (JSON) auszugeben. Die klare Anweisung zur Ausgabe im JSON-Format und die präzise Angabe der Daten (Namen und E-Mail-Adressen) vermeiden Unklarheiten.
+
+---
+
+# Fazit 
+- **Mach es der KI leicht**: Je klarer und strukturierter der Prompt, desto besser das Ergebnis.
+- **Denke an die Zielgruppe**: Schreibe den Prompt so, als ob du einer Person Anweisungen gibst.
+- **Bewerte den Output kritisch**: KI-Modelle liefern Ergebnisse basierend auf den Trainingsdaten – sie sind nicht immer korrekt oder vollständig.
+
+---
+
+## Quellen 
+- https://www.coursera.org/de-DE/articles/what-is-prompt-engineering
+- https://de.wikipedia.org/wiki/Prompt_Engineering
+- https://medium.com/@niall.mcnulty/writing-an-o1-prompt-that-works-16ee921b5859
+
+
+
 # Python List Comprehensions
-List comprehensions are a concise way to create lists in Python. They provide a more elegant and readable solution compared to traditional approaches using loops and conditional statements.
-## Basic Syntax
-The basic syntax of a list comprehension is:
+
+## Einführung
+
+List Comprehensions (Listenverständnisse) sind eine der leistungsstärksten Funktionen von Python, die es ermöglichen, Listen auf kompakte, lesbare Weise zu erstellen.  
+Anstatt mehrere Zeilen mit Schleifen und Bedingungen zu verwenden, kann man dieselbe Operation in einer einzigen Codezeile ausdrücken.
+
+## Warum List Comprehensions?
+
+✅Kompakterer Code (weniger Zeilen)  
+✅Oft besser lesbar, sobald man die Syntax versteht  
+✅Allgemein schneller als entsprechende `for`-Schleifen  
+✅Gilt als "pythonisch" – idiomatischer Python-Stil  
+
+## Grundlegende Syntax
+
+Die grundlegende Syntax ist:
+
 ```python
 [expression for item in iterable]
 ```
 
-This creates a new list by evaluating the expression for each item in the iterable.
-
-## Simple Example
-Let's compare traditional loop approach with list comprehension:
+**Traditioneller Ansatz**
 
 ```python
-# Traditional approach
 squares = []
 for x in range(10):
     squares.append(x**2)
-print(squares)  # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
-
-# List comprehension approach
-squares = [x**2 for x in range(10)]
-print(squares)  # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
 ```
-As you can see, the list comprehension is more concise and easier to read.
 
-### Adding Conditions
-List comprehensions can include conditional statements to filter out elements.
+**List Comprehension Ansatz**
+
+```python
+squares = [x**2 for x in range(10)]
+# Ergebnis: [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+```
+
+> 📝Hinweis: Die List Comprehension erreicht in 1 Zeile, wofür eine traditionelle Schleife 3 Zeilen benötigt!
+
+## 🧮Hinzufügen von Bedingungen
+
+Du kannst Elemente mit Bedingungen filtern:
 
 ```python
 [expression for item in iterable if condition]
 ```
-### Filtering Example
-Let's create a list of even squares:
 
+**💡Beispiel mit Filterung**
 
 ```python
-# Traditional approach
-even_squares = []
-for x in range(10):
-    if x % 2 == 0:
-        even_squares.append(x**2)
-print(even_squares)  # [0, 4, 16, 36, 64]
-
-# List comprehension approach
 even_squares = [x**2 for x in range(10) if x % 2 == 0]
 print(even_squares)  # [0, 4, 16, 36, 64]
 ```
 
-## Exercise 1
-Create a list comprehension that generates a list of the first 15 multiples of 3.
+## ✏️Kurze Übung
 
-$Lösung: ^Dies ist ein Beispiel
+> **Aufgabe:** Erstelle eine Liste der ersten 10 Vielfachen von 3.
 
-## Creating Matrices
-Here's how to create a 3×4 matrix using a nested list comprehension:
+$Lösung: list_comprehension_multiples_3
+## 🧩Verschachtelte List Comprehensions
+
+Du kannst mehrdimensionale Strukturen wie Matrizen erstellen:
+
+**Erstellen einer 3×3 Matrix**
 
 ```python
-matrix = [[i*j for j in range(4)] for i in range(3)]
-print(matrix)
-# [[0, 0, 0, 0], [0, 1, 2, 3], [0, 2, 4, 6]]
+matrix = [[i*j for j in range(3)] for i in range(3)]
 ```
 
-### Matrix Transposition
-List comprehensions are excellent for matrix operations like transposition:
+**Ergebnis:**
 
 ```python
-matrix = [
-    [1, 2, 3, 4],
-    [5, 6, 7, 8],
-    [9, 10, 11, 12]
-]
-
-# Transpose the matrix
-transposed = [[row[i] for row in matrix] for i in range(4)]
-print(transposed)
-# [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
-```
-## Exercise 2
-Create a nested list comprehension to generate a 5×5 identity matrix (a matrix with 1s on the diagonal and 0s elsewhere).
-
-### Solution
-```python
-identity_matrix = [[1 if i == j else 0 for j in range(5)] for i in range(5)]
-print(identity_matrix)
-# [[1, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 1, 0], [0, 0, 0, 0, 1]]
+[[0, 0, 0], 
+ [0, 1, 2], 
+ [0, 2, 4]]
 ```
 
-# Advanced List Comprehensions
-List comprehensions can include complex logic and multiple conditions.
-
-## Multiple If Conditions
-You can chain multiple conditions in a list comprehension:
+### 💡Beispiel zur Matrix-Transposition
 
 ```python
-numbers = [x for x in range(100) if x % 2 == 0 if x % 5 == 0]
-print(numbers)  # [0, 10, 20, 30, 40, 50, 60, 70, 80, 90]
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+
+# Zeilen zu Spalten transponieren
+transposed = [[row[i] for row in matrix] for i in range(3)]
+# Ergebnis: [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
 ```
-## If-Else in List Comprehensions
-You can also use if-else statements within a list comprehension:
+
+> 📝 Hinweis: Die äußere Comprehension erstellt jede neue Spalte, während die innere Werte aus jeder Zeile sammelt.
+
+## 🚀 Fortgeschrittene Techniken
+
+**Bedingte Ausdrücke (if-else)**
+
+Verwendung von if-else zur Transformation von Werten
 
 ```python
-# Format: [expression1 if condition else expression2 for item in iterable]
 values = [x if x % 2 == 0 else 'odd' for x in range(10)]
-print(values)  # [0, 'odd', 2, 'odd', 4, 'odd', 6, 'odd', 8, 'odd']
+# Ergebnis: [0, 'odd', 2, 'odd', 4, 'odd', 6, 'odd', 8, 'odd']
 ```
 
-## Working with Strings
-List comprehensions work great with strings:
+**Arbeiten mit Strings**
 
 ```python
-words = ['apple', 'banana', 'cherry', 'date', 'elderberry']
-capitalized = [word.upper() for word in words if len(word) > 5]
-print(capitalized)  # ['BANANA', 'CHERRY', 'ELDERBERRY']
+words = ['apple', 'banana', 'cherry', 'date']
+uppercase = [word.upper() for word in words if len(word) > 5]
+# Ergebnis: ['BANANA', 'CHERRY']
 ```
 
-## Exercise 3
-Create a list comprehension that takes a list of words and returns a list containing the length of each word, but only if the word starts with a vowel (a, e, i, o, u)
+## ⚡ Leistung und Effizienz
 
-# Performance Considerations
-List comprehensions aren't just more concise – they're often faster than traditional loops.
+List Comprehensions sind in der Regel schneller als for-Schleifen und speichereffizienter bei der Arbeit mit großen Datensätzen.
 
-## Memory Efficiency
-For large datasets, consider using generator expressions (similar to list comprehensions but with parentheses instead of brackets) to save memory:
+**Speicheroptimierung mit Generator-Ausdrücken**
+
+Bei der Verarbeitung sehr großer Sequenzen solltest du Generator-Ausdrücke in Betracht ziehen:
+
+**List Comprehension (speichert alles im Arbeitsspeicher)**
 
 ```python
-# List comprehension (stores all values in memory)
 sum_squares = sum([x**2 for x in range(1000000)])
-
-# Generator expression (processes values one at a time)
-sum_squares = sum(x**2 for x in range(1000000))
 ```
-## Readability vs. Complexity
-While list comprehensions are powerful, overly complex ones can harm readability:
+
+**Generator-Ausdruck (verarbeitet jeweils einen Wert)**
 
 ```python
-# Harder to read
-flattened = [item for sublist in [[(i, j) for j in range(3)] for i in range(3)] for item in sublist]
-
-# Better split into multiple steps
-matrix = [[(i, j) for j in range(3)] for i in range(3)]
-flattened = [item for sublist in matrix for item in sublist]
+sum_squares = sum(x**2 for x in range(1000000))
+# Beachte die ( ) anstelle von [ ]
 ```
 
-# When to Avoid List Comprehensions
-List comprehensions are best for simple transformations. For complex operations with multiple steps or side effects, traditional loops are often clearer.
+> 💡 **Profi-Tipp:** Generator-Ausdrücke verbrauchen weniger Speicher, da sie Werte bei Bedarf erzeugen, anstatt die gesamte Liste auf einmal zu speichern.
 
-## Exercise 4
-Compare the execution time of a list comprehension versus a traditional loop for creating a list of squares from 1 to 1,000,000. Use the `time.perfcounter` function to measure the time taken for each approach.
+## 📋 Best Practices
 
-# Summary and best practices
-List comprehensions are a powerful Python feature that allows for concise and readable code. Here are some best practices:
+**✅ Verwende List Comprehensions, wenn:**
 
-- Prioritize readability: If a list comprehension becomes too complex, break it down.
-- Consider performance: For large datasets, be mindful of memory usage.
-- Use generator expressions for processing large sequences when you only need to iterate once.
-- Don't nest too deeply: Deeply nested list comprehensions can be hard to understand.
-- Add comments for complex list comprehensions to explain what they do.
+- Du eine neue Liste basierend auf einer vorhandenen Sequenz erstellst  
+- Du einfache Transformationen oder Filterungen durchführst  
+- Die Operation klar in einer Zeile ausgedrückt werden kann  
 
-### When to use
-List comprehensions are ideal for:
-- Creating new lists based on existing iterables.
-- Simple transformations and filtering.
-- Replacing short for loops with cleaner syntax.
+**❌ Vermeide List Comprehensions, wenn:**
 
-### When to avoid
-Consider other approaches when:
-- The logic is complex or involves multiple steps.
-- You need to perform side effects (like printing or modifying external variables).
-- Readability is compromised.
+- Die Logik komplex ist oder mehrere Schritte umfasst  
+- Die Comprehension schwer zu lesen wird  
+- Du Nebeneffekte benötigst (wie Ausgaben)  
 
-Remember, clarity is more important than brevity. The best Python code is not just concise but also easy to understand and maintain.
+### Priorisiere Lesbarkeit:
 
+**Zu komplex für eine Zeile:**
+
+```python
+bad = [x for x in [y for y in range(100) if y % 2 == 0] if x % 3 == 0]
+```
+
+**Besser als separate Schritte:**
+
+```python
+even_numbers = [y for y in range(100) if y % 2 == 0]
+result = [x for x in even_numbers if x % 3 == 0]
+```
+
+## 🔄 Andere Comprehensions
+
+**Dictionary Comprehension**
+
+```python
+{x: x**2 for x in range(5)}  # {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
+```
+
+**Set Comprehension**
+
+```python
+{x**2 for x in [1, 2, 2, 3, 3, 3]}  # {1, 4, 9}
+```
+
+## 📝 Zusammenfassung
+
+- List Comprehensions bieten eine prägnante Möglichkeit, Listen zu erstellen  
+- Grundlegende Syntax: `[expression for item in iterable if condition]`  
+- Sie sind besser lesbar und oft schneller als traditionelle Schleifen  
+- Verwende sie für einfache Operationen; zerlege komplexe Aufgaben  
+- Denke daran, dass **Klarheit wichtiger ist als Kompaktheit**
+
+>  🌟 Merke: Obwohl List Comprehensions leistungsstark sind, besteht das Ziel darin, Code zu schreiben, der leicht zu verstehen ist – für dich selbst und andere. Eine gute List Comprehension macht deinen Code **lesbarer und schneller**!
