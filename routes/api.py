@@ -157,9 +157,7 @@ def check_solution():
                 prompt += (
                     "Aufgabenstellung: Schreiben Sie einen einfachen Prompt für ein KI-System, "
                     "der Namen und E-Mail-Adressen aus einem Text extrahiert und die Daten im JSON-Format zurückgibt.\n"
-                    "Dies ist der Text, aus dem die Daten extrahiert werden sollen:\n"
-                    "Johanna Schmidt, johanna.schmidt@email.com, ist die Projektleiterin bei ABC Corp."
-                    "Thomas Müller, thomas.mueller@email.com, arbeitet als Entwickler bei XYZ GmbH. (Hier ist wirklich nur der Prompt gefragt, ein JSON beispiel ist nicht notwendig)."
+                    "(Hier ist wirklich nur der Prompt gefragt, ein JSON beispiel ist nicht notwendig)."
                 )
             elif solution_id == "list_compt_task_1":
                 prompt += (
