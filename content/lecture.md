@@ -1,8 +1,9 @@
 # 0 - Prompt Engineering: Wie man Prompts richtig entwickelt, analysiert und effizient anwendet
-
-Prompt Engineering ist die Kunst, KI-Modelle wie GPT gezielt zu steuern, sodass sie präzise und effiziente Ergebnisse liefern. In dieser Vorlesung werden wir uns mit der Entwicklung, Analyse und Anwendung von Prompts beschäftigen, um sicherzustellen, dass Sie das Beste aus KI herausholen können.
+**Lernziel:**
+Nach diesem Teil der Veranstaltung sollten die Studierenden in der Lage sein, unter Anwendung von Techniken des Prompt Engineering eigene Prompts richtig und effizient zu entwickeln, um ein einfaches Problem zu lösen, bestehende Prompts systematisch zu analysieren und deren Effizienz und Korrektheit für konkrete Anwendungen (z.B. Code-Generierung) zu evaluieren. 
 
 ## Was ist Prompt Engineering?
+Prompt Engineering ist die Kunst, KI-Modelle wie GPT gezielt zu steuern, sodass sie präzise und effiziente Ergebnisse liefern. In dieser Vorlesung werden wir uns mit der Entwicklung, Analyse und Anwendung von Prompts beschäftigen, um sicherzustellen, dass Sie das Beste aus KI herausholen können.
 
 Prompt Engineering umfasst:
 - Die gezielte Gestaltung von Eingaben (Prompts), um aus Sprachmodellen wie GPT optimale Ergebnisse zu erzielen.
@@ -217,7 +218,8 @@ $Lösung: ki_task_3
 
 
 # Python List Comprehensions
-
+**Lernziel:**
+Nach der Teilnahme an der Lehrveranstaltung sind die Studierenden in der Lage, unter Verwendung von List Comprehension konkrete Anwendungssituationen in Python zu analysieren und in eigenen Worten zu erklären. Dabei können die Studierenden analysieren, welche Funktionalität konkrete Implementierungen einer List Comprehension haben und können selbst eine einfache Listenstruktur mit List Comprehension erstellen.
 ## Einführung
 
 List Comprehensions (Listenverständnisse) sind eine der leistungsstärksten Funktionen von Python, die es ermöglichen, Listen auf kompakte, lesbare Weise zu erstellen.  
@@ -346,6 +348,19 @@ sum_squares = sum(x**2 for x in range(1000000))
 ```
 
 > 💡 **Profi-Tipp:** Generator-Ausdrücke verbrauchen weniger Speicher, da sie Werte bei Bedarf erzeugen, anstatt die gesamte Liste auf einmal zu speichern.
+## 🔄 Andere Comprehensions
+
+**Dictionary Comprehension**
+
+```python
+{x: x**2 for x in range(5)}  # {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
+```
+
+**Set Comprehension**
+
+```python
+{x**2 for x in [1, 2, 2, 3, 3, 3]}  # {1, 4, 9}
+```
 
 ## 📋 Best Practices
 
@@ -374,20 +389,6 @@ bad = [x for x in [y for y in range(100) if y % 2 == 0] if x % 3 == 0]
 ```python
 even_numbers = [y for y in range(100) if y % 2 == 0]
 result = [x for x in even_numbers if x % 3 == 0]
-```
-
-## 🔄 Andere Comprehensions
-
-**Dictionary Comprehension**
-
-```python
-{x: x**2 for x in range(5)}  # {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
-```
-
-**Set Comprehension**
-
-```python
-{x**2 for x in [1, 2, 2, 3, 3, 3]}  # {1, 4, 9}
 ```
 
 ## 📝 Zusammenfassung

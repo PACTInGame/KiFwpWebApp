@@ -28,7 +28,7 @@ def _call_anthropic_api(model: str, system_prompt: str, messages: List[Dict[str,
             system=system_prompt,
             messages=messages
         )
-        print(response)  # Keeping the debug print
+        #print(response)  # Keeping the debug print
 
         # Extract token counts and update session cost
         tokens = {
@@ -74,14 +74,14 @@ def ask_ai():
     data = request.json
     section_index = data.get('section_index', 0)
     question = data.get('question', '')
-    print(section_index)
+    #print(section_index)
     # Read the markdown file
     with open('content/lecture.md', 'r', encoding='utf-8') as file:
         content = file.read()
 
     # Parse the markdown and extract the section
     section_boundaries = parse_markdown_sections(content)
-    print(section_boundaries)
+    #print(section_boundaries)
     if section_index < 0 or section_index >= len(section_boundaries):
         return jsonify({"error": "Invalid section index"}), 400
 
@@ -108,7 +108,7 @@ def check_solution():
     user_input = data.get('userInput', '')
     solution_id = data.get('solutionId', '')
 
-    print("route called")
+    #print("route called")
     try:
 
         if solution_id not in ["ki_task_1", "ki_task_2", "ki_task_3", "list_compt_task_1", "list_compt_task_2"]:
@@ -133,7 +133,7 @@ def check_solution():
                 "solutionId": solution_id
             })
         else:
-            print("trying to call api solution check")
+            #print("trying to call api solution check")
             system_prompt = (
                 "Du bist ein eingebetteter KI Assistent zur Überprüfung von Lösungen in einer Web App für Studierende, die während "
                 "der Vorlesung verwendet wird. Deine einzige Aufgabe ist es einen Tag zurückzugeben, der die Lösung der Studierenden als "
@@ -180,7 +180,7 @@ def check_solution():
             prompt += f"\n\nLösung: {user_input}"
 
             ai_answer_string = call_api_solution_check(system_prompt, prompt)
-            print(ai_answer_string)
+            #print(ai_answer_string)
             is_correct = True if "<correct>" in ai_answer_string else False if "<wrong>" in ai_answer_string else None
 
             if is_correct:
